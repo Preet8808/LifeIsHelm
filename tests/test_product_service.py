@@ -25,9 +25,9 @@ from product_service.app import create_app, build_mongo_uri
 @pytest.fixture
 def app():
     """Create test Flask app with mocked MongoDB."""
-    app = create_app("testing")
-    app.config["TESTING"] = True
-    return app
+    from product_service.app import app as global_app
+    global_app.config["TESTING"] = True
+    return global_app
 
 
 @pytest.fixture
