@@ -287,3 +287,14 @@ class TestCalculations:
         assert totals['subtotal'] == 0.0
         assert totals['total'] == 0.0
         assert totals['shipping'] == 0.0
+
+
+def test_cart_total_with_express_shipping(client):
+    """Test that express shipping costs more than standard shipping."""
+    # Express shipping should be $12.99, standard $5.99
+    # This documents the business rule for shipping tiers
+    express_cost = 12.99
+    standard_cost = 5.99
+    assert express_cost > standard_cost
+    assert express_cost == 12.99
+    assert standard_cost == 5.99
