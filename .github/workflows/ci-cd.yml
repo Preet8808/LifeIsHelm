@@ -317,5 +317,3 @@ jobs:
           kubectl rollout status deployment/product-service -n ecomops --timeout=120s
           kubectl rollout status deployment/cart-service -n ecomops --timeout=120s
           kubectl rollout status deployment/frontend -n ecomops --timeout=120s
-
-      - name: Pipeline Summary
