@@ -212,7 +212,7 @@ def list_products():
 def create_product():
     """Create a new product."""
     try:
-        data = request.get_json()
+        data = request.get_json(silent=True)
         if not data:
             return jsonify({"error": "Request body is required"}), 400
         
