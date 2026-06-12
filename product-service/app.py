@@ -206,10 +206,13 @@ def list_products():
 
 
 @app.route("/products", methods=["POST"])
+# Validates: name (required), price (> 0), stock (>= 0), category (required)
+# Auto-generates SKU in format PRD-YYYYMMDDhhmmss if not provided
+# Returns 400 if required fields missing, 201 on success
 def create_product():
     """Create a new product."""
     try:
-        data = request.get_json()
+        data = request.get_json(silent=True)
         if not data:
             return jsonify({"error": "Request body is required"}), 400
         

@@ -25,15 +25,27 @@ from product_service.app import create_app, build_mongo_uri
 @pytest.fixture
 def app():
     """Create test Flask app with mocked MongoDB."""
-    app = create_app("testing")
-    app.config["TESTING"] = True
-    return app
+    from product_service.app import app as global_app
+    global_app.config["TESTING"] = True
+    return global_app
 
 
 @pytest.fixture
 def client(app):
     """Create test client."""
     return app.test_client()
+
+
+@pytest.fixture
+def sample_product_data():
+    """Sample product data for testing."""
+    return {
+        "name": "Sample Product",
+        "price": 10.99,
+        "sku": "SAM-001",
+        "category": "Electronics",
+        "stock_quantity": 50
+    }
 
 
 # ---------------------------------------------------------------------------
@@ -213,3 +225,13 @@ class TestHelpers:
         with patch.dict('os.environ', {}, clear=True):
             uri = build_mongo_uri()
             assert uri == 'mongodb://localhost:27017/ecomops'
+
+
+def test_product_price_must_be_positive(client, sample_product_data):
+    """Test that product creation fails when price is 0 or negative."""
+    invalid_data = {**sample_product_data, "price": -5.00}
+    response = client.post("/products",
+                           data=json.dumps(invalid_data),
+                           content_type="application/json")
+    # Negative price should be rejected
+    assert response.status_code in [400, 422]
