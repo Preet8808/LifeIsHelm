@@ -16,6 +16,7 @@ Features:
 from flask import Flask, render_template, jsonify, request, redirect, url_for, flash
 from datetime import datetime, timezone
 import os
+import math
 import requests
 import logging
 from prometheus_flask_exporter import PrometheusMetrics
