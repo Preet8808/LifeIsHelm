@@ -2,7 +2,16 @@
 # EcomOps - Docker Compose
 # Local development orchestration for all services
 # =============================================================================
-
+# =============================================================================
+# EcomOps Local Development Stack
+# =============================================================================
+# Usage: docker-compose up --build -d
+# Services: frontend (5000), product-service (5001), cart-service (5002)
+#           mongodb (27017), prometheus (9090), grafana (3000)
+# Default Grafana login: admin / admin123
+# Stop all: docker-compose down
+# Stop + remove volumes: docker-compose down -v
+# =============================================================================
 version: "3.8"
 
 services:
