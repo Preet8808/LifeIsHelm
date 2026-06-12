@@ -79,6 +79,16 @@ mongo = app.mongo
 # Predefined Coupons for Business Logic
 # ---------------------------------------------------------------------------
 
+# =============================================================================
+# COUPON SYSTEM
+# =============================================================================
+# Available coupons and their rules:
+# SAVE10    - 10% off orders over $30
+# SAVE20    - 20% off orders over $60
+# WELCOME5  - $5 off first order over $20
+# FREESHIP  - Free standard shipping on orders over $25
+# FLASH25   - 25% off orders over $50 (flash sale)
+# =============================================================================
 COUPONS = {
     "SAVE10": {"type": "percentage", "value": 10, "min_order": 50.0, "description": "10% off on orders above $50"},
     "SAVE20": {"type": "percentage", "value": 20, "min_order": 100.0, "description": "20% off on orders above $100"},
