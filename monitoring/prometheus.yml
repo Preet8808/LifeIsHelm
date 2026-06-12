@@ -1,3 +1,7 @@
+# Prometheus scrape configuration for EcomOps
+# Scrapes /metrics from all three Flask services every 15 seconds
+# Each service exposes Prometheus metrics via prometheus-flask-exporter
+# Metrics include: request count, latency histograms, error rates
 global:
   scrape_interval: 15s
   scrape_timeout: 10s
