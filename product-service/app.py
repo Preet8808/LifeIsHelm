@@ -43,6 +43,13 @@ def create_app(config_name="production"):
     app.start_time = datetime.now(timezone.utc)
     
     # Initialize Prometheus Metrics
+    from prometheus_client import REGISTRY
+    for name in list(REGISTRY._names_to_collectors.keys()):
+        if name == 'app_info':
+            try:
+                REGISTRY.unregister(REGISTRY._names_to_collectors[name])
+            except KeyError:
+                pass
     metrics = PrometheusMetrics(app)
     metrics.info('app_info', 'Product Catalog Service', version='1.0.0')
     
