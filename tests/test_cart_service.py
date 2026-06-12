@@ -23,9 +23,9 @@ from cart_service.app import create_app, calculate_cart_totals
 @pytest.fixture
 def app():
     """Create test Flask app."""
-    app = create_app("testing")
-    app.config["TESTING"] = True
-    return app
+    from cart_service.app import app as global_app
+    global_app.config["TESTING"] = True
+    return global_app
 
 
 @pytest.fixture
@@ -101,6 +101,9 @@ class TestCartItems:
             {"_id": "507f1f77bcf86cd799439011", "items": [], "discount_code": "", "shipping_method": "standard"},
             {"_id": "507f1f77bcf86cd799439011", "items": [
                 {"sku": "PROD-1", "name": "Widget", "price": 10.0, "quantity": 2}
+            ], "discount_code": "", "shipping_method": "standard"},
+            {"_id": "507f1f77bcf86cd799439011", "items": [
+                {"sku": "PROD-1", "name": "Widget", "price": 10.0, "quantity": 2}
             ], "discount_code": "", "shipping_method": "standard"}
         ]
         
@@ -127,6 +130,7 @@ class TestCartItems:
             {"_id": "507f1f77bcf86cd799439011", "items": [
                 {"sku": "PROD-1", "name": "Widget", "price": 10.0, "quantity": 1}
             ], "discount_code": "", "shipping_method": "standard"},
+            {"_id": "507f1f77bcf86cd799439011", "items": [], "discount_code": "", "shipping_method": "standard"},
             {"_id": "507f1f77bcf86cd799439011", "items": [], "discount_code": "", "shipping_method": "standard"}
         ]
         

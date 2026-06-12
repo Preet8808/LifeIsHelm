@@ -111,6 +111,11 @@ jobs:
           python -m pip install --upgrade pip
           pip install pytest pytest-cov flask pymongo prometheus-flask-exporter requests
 
+      - name: Create package symlinks for testing
+        run: |
+          ln -s product-service product_service
+          ln -s cart-service cart_service
+
       - name: Run unit tests with coverage
         run: |
           export MONGO_HOST=localhost

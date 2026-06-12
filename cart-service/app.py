@@ -41,6 +41,13 @@ def create_app(config_name="production"):
     app.start_time = datetime.now(timezone.utc)
     
     # Initialize Prometheus Metrics
+    from prometheus_client import REGISTRY
+    for name in list(REGISTRY._names_to_collectors.keys()):
+        if name == 'app_info':
+            try:
+                REGISTRY.unregister(REGISTRY._names_to_collectors[name])
+            except KeyError:
+                pass
     metrics = PrometheusMetrics(app)
     metrics.info('app_info', 'Shopping Cart Service', version='1.0.0')
     
@@ -135,10 +142,11 @@ def calculate_cart_totals(items, discount_code=None, shipping_method="standard")
     
     # Calculate shipping
     shipping = 0.0
-    if shipping_method == "express":
-        shipping = SHIPPING_RATES["express"]
-    elif subtotal < SHIPPING_RATES["free_threshold"]:
-        shipping = SHIPPING_RATES["standard"]
+    if subtotal > 0.0:
+        if shipping_method == "express":
+            shipping = SHIPPING_RATES["express"]
+        elif subtotal < SHIPPING_RATES["free_threshold"]:
+            shipping = SHIPPING_RATES["standard"]
     
     # Tax (8%)
     taxable_amount = max(0, subtotal - discount)
