@@ -8,8 +8,8 @@ A production-grade DevOps Capstone Project demonstrating a complete CI/CD pipeli
 
 ```bash
 # Clone and start
-git clone https://github.com/Preet8808/EcomOps.git
-cd EcomOps
+git clone https://github.com/Preet8808/LifeIsHelm.git
+cd LifeIsHelm
 docker-compose up --build -d
 
 # Access
